@@ -19,19 +19,25 @@ class GreeterServiceTests {
   @Test
   @DisplayName("greets user with age below 10 with Hi")
   void greetsUserWithAgeBelow10WithHi() {
-    fail("Not implemented");
+    User user = new User("John", 5);
+    String result = this.subject.greet(user);
+    assertEquals("Hi", result);
   }
 
   @Test
   @DisplayName("greets user with age between 10 and 20 with Hey")
   void greetsUserWithAgeBetween10And20WithHey() {
-    fail("Not implemented");
+    User user = new User("John", 13);
+    String result = this.subject.greet(user);
+    assertEquals("Hey", result);
   }
 
   @Test
   @DisplayName("greets user above 20 with Hello")
   void greetsUserWithAgeBelow10WithHello() {
-    fail("Not implemented");
+    User user = new User("John", 25);
+    String result = this.subject.greet(user);
+    assertEquals("Hello", result);
   }
 
 }

@@ -9,5 +9,11 @@ public class UserService {
   }
 
   public void createUser(User user) {
+    User current = this.repo.findByName(user.getName());
+    if (current != null) {
+      return;
+    }
+
+    this.repo.saveUser(user);
   }
 }

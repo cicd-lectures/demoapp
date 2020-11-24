@@ -29,13 +29,23 @@ class UserServiceTests {
   @Test
   @DisplayName("creates an user")
   public void createsUser() {
-    fail("not implemented");
+    User user = new User("foo", 10);
+    when(repository.findByName("foo")).thenReturn(null);
+
+    subject.createUser(user);
+
+    verify(this.repository).saveUser(user);
   }
 
   @Test
   @DisplayName("does not create a user if it already exists")
   public void doesNotcreateUserIfAlreadyExists() {
-    fail("not implemented");
+    User user = new User("foo", 10);
+    when(repository.findByName("foo")).thenReturn(user);
+
+    subject.createUser(user);
+
+    verify(this.repository, never()).saveUser(user);
   }
 
 }

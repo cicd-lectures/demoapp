@@ -1,7 +1,11 @@
 package com.cicdlectures.demoapp.user;
 
-public interface UserRepository {
-    public void saveUser(User user);
+import java.util.List;
 
-    public User findByName(String user);
+import org.springframework.data.repository.CrudRepository;
+
+public interface UserRepository extends CrudRepository<User,Long> {
+
+    public List<User> findByName(String name);
+
 }

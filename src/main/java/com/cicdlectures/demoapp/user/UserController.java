@@ -15,7 +15,11 @@ public class UserController {
 
   @GetMapping(path = "/users", produces = "application/json")
   public Iterable<User> getUsers(@RequestParam(value = "name",defaultValue = "") String name) {
-    return null;
+    if (!name.isBlank()) {
+      return this.users.findByName(name);
+    }
+
+    return this.users.findAll();
   }
 
 }

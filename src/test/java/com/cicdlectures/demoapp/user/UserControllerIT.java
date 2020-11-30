@@ -19,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserControllerIT {
@@ -48,13 +47,47 @@ public class UserControllerIT {
   @Test
   @DisplayName("lists all users")
   public void testUsersList() throws Exception {
-    fail("not implemented");
+    User[] wantUsers = {
+      new User("John", 43),
+      new User("Philip", 93),
+      new User("Mitchell", 31)
+    };
+
+    for (User user : wantUsers) {
+      this.userRepository.save(user);
+    }
+
+    ResponseEntity<User[]> response = this.template
+      .getForEntity(url.toString(), User[].class);
+
+    User[] gotUsers = response.getBody();
+
+    assertArrayEquals(wantUsers, gotUsers);
   }
 
   @Test
   @DisplayName("filters users by name")
   public void testUsersListFiltersByName() throws Exception {
-    fail("not implemented");
+    User[] users = {
+      new User("John", 43),
+      new User("Philip", 93),
+      new User("Mitchell", 31)
+    };
+
+    for (User user : users) {
+      this.userRepository.save(user);
+    }
+
+    ResponseEntity<User[]> response = this.template
+      .getForEntity(url.toString()+ "?name=Philip", User[].class);
+
+    User[] gotUsers = response.getBody();
+
+    assertTrue(gotUsers.length == 1);
+
+    User gotUser = gotUsers[0];
+
+    assertEquals(users[1], gotUser);
   }
 
 }

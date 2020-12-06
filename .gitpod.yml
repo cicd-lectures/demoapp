@@ -1,4 +1,6 @@
 ---
-image:
-  file: .gitpod.Dockerfile
+# Dockerfile found in .tools/Dockerfile and auto-built by the Dockerhub
+image: "dduportal/cicd-gitpod"
+# Multiple projects are expected, so we specify the "base directory" (e.g. "/workspace")
+workspaceLocation: "."
 ...
